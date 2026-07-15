@@ -4,12 +4,14 @@
  */
 package com.kennethvelasquez.controller;
 
+import com.kennethvelasquez.view.BienvenidaView;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import com.kennethvelasquez.view.LoginView;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
 public class SceneManager {
@@ -29,6 +31,26 @@ public class SceneManager {
             cambiarEscena(login, 450, 500);
             this.escenaPrincipal.setFill(Color.TRANSPARENT);
             new LoginController(login );
+            
+        } catch (NullPointerException objetoNulo) {
+            JOptionPane.showMessageDialog(null, "Error de objeto nulo: Ventana Login");
+            objetoNulo . printStackTrace(); // mostrar todo el camino del error
+        } catch (Exception errorPadre)  {
+            JOptionPane.showMessageDialog(null, "Error padre: Ventana Login");
+            errorPadre.printStackTrace();
+        }
+    }
+    
+    public void ventanaBienvenida(){
+        try {
+            this.escenarioSecundario = new Stage();
+            this.escenarioSecundario.initStyle(StageStyle.TRANSPARENT);
+            this.escenarioSecundario.initModality(Modality.APPLICATION_MODAL);
+            BienvenidaView bienvenida = new BienvenidaView();
+            this.escenaPrincipal = new Scene(bienvenida, 15, 25);
+            this.escenarioSecundario.setScene(escenaPrincipal);
+            this.escenarioSecundario.sizeToScene();
+            this.escenarioSecundario.showAndWait();
             
         } catch (NullPointerException objetoNulo) {
             JOptionPane.showMessageDialog(null, "Error de objeto nulo: Ventana Login");
